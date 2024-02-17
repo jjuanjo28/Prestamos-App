@@ -5,6 +5,8 @@ import { ScrollViewStyleReset } from 'expo-router/html';
 // The contents of this function only run in Node.js environments and
 // do not have access to the DOM or browser APIs.
 export default function Root({ children }: { children: React.ReactNode }) {
+ 
+  // esto lo borre de adentro del Root ==>>>  
   return (
     <html lang="en">
       <head>

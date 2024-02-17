@@ -4,6 +4,8 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import { Provider } from 'react-redux';
+import storeFn from "../app/store"
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -18,7 +20,7 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function RootLayout( ) {
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
@@ -41,16 +43,24 @@ export default function RootLayout() {
 
   return <RootLayoutNav />;
 }
+const store = storeFn()
 
-function RootLayoutNav() {
+function RootLayoutNav(props) {
+  
+console.log("soy props:",props)
+ 
+ 
   const colorScheme = useColorScheme();
 
   return (
+    <Provider store={store}>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
     </ThemeProvider>
+</Provider>
+    
   );
 }
